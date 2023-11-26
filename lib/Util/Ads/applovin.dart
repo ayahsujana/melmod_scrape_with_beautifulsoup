@@ -323,125 +323,132 @@ class ApplovinAdNetwork {
   }
 
   Widget showNativeBannerAppLovin() {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Container(
-        height: 100,
-        width: double.infinity,
-        // decoration: BoxDecoration(border: Border.all(color: PRIMARY_COLOR)),
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: MaxNativeAdView(
-            adUnitId: appLovinNative,
-            controller: _nativeAdViewController,
-            listener: NativeAdListener(onAdLoadedCallback: (ad) {
-              _mediaViewAspectRatio = ad.nativeAd?.mediaContentAspectRatio ??
-                  _kMediaViewAspectRatio;
-            }, onAdLoadFailedCallback: (adUnitId, error) {
-              print('APPLOVIN ERRROR GUYS');
-              //logStatus(
-              //  'Native ad failed to load with error code ${error.code} and message: ${error.message}');
-            }, onAdClickedCallback: (ad) {
-              //logStatus('Native ad clicked');
-            }, onAdRevenuePaidCallback: (ad) {
-              // logStatus('Native ad revenue paid: ${ad.revenue}');
-            }),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 150,
-                  height: double.infinity,
-                  child: AspectRatio(
-                    aspectRatio: _mediaViewAspectRatio,
-                    child: const MaxNativeAdMediaView(),
-                  ),
-                ),
-                Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return appLovinNative == "0"
+        ? SizedBox()
+        : Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Container(
+              height: 100,
+              width: double.infinity,
+              // decoration: BoxDecoration(border: Border.all(color: PRIMARY_COLOR)),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: MaxNativeAdView(
+                  adUnitId: appLovinNative,
+                  controller: _nativeAdViewController,
+                  listener: NativeAdListener(onAdLoadedCallback: (ad) {
+                    _mediaViewAspectRatio =
+                        ad.nativeAd?.mediaContentAspectRatio ??
+                            _kMediaViewAspectRatio;
+                  }, onAdLoadFailedCallback: (adUnitId, error) {
+                    print('APPLOVIN ERRROR GUYS');
+                    //logStatus(
+                    //  'Native ad failed to load with error code ${error.code} and message: ${error.message}');
+                  }, onAdClickedCallback: (ad) {
+                    //logStatus('Native ad clicked');
+                  }, onAdRevenuePaidCallback: (ad) {
+                    // logStatus('Native ad revenue paid: ${ad.revenue}');
+                  }),
+                  child: Row(
                     children: [
                       SizedBox(
-                        height: 20,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        width: 150,
+                        height: double.infinity,
+                        child: AspectRatio(
+                          aspectRatio: _mediaViewAspectRatio,
+                          child: const MaxNativeAdMediaView(),
+                        ),
+                      ),
+                      Expanded(
+                          child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.0),
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: MaxNativeAdTitleView(
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 14),
-                                maxLines: 1,
-                                overflow: TextOverflow.visible,
+                            SizedBox(
+                              height: 20,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: MaxNativeAdTitleView(
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.visible,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 2.0,
+                                  ),
+                                  MaxNativeAdOptionsView(
+                                    width: 20,
+                                    height: 20,
+                                  ),
+                                ],
                               ),
                             ),
-                            SizedBox(
-                              width: 2.0,
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: MaxNativeAdAdvertiserView(
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 9),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.fade,
+                                  ),
+                                ),
+                                MaxNativeAdStarRatingView(
+                                  size: 10,
+                                ),
+                              ],
                             ),
-                            MaxNativeAdOptionsView(
-                              width: 20,
-                              height: 20,
+                            MaxNativeAdBodyView(
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 12),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 35,
+                              child: MaxNativeAdCallToActionView(
+                                style: ButtonStyle(
+                                  shape: MaterialStatePropertyAll<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStatePropertyAll<Color>(
+                                          Colors.green),
+                                  textStyle:
+                                      MaterialStatePropertyAll<TextStyle>(
+                                          TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            child: MaxNativeAdAdvertiserView(
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal, fontSize: 9),
-                              maxLines: 1,
-                              overflow: TextOverflow.fade,
-                            ),
-                          ),
-                          MaxNativeAdStarRatingView(
-                            size: 10,
-                          ),
-                        ],
-                      ),
-                      MaxNativeAdBodyView(
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 12),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(
-                        height:5.0,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 35,
-                        child: MaxNativeAdCallToActionView(
-                          style: ButtonStyle(
-                            shape: MaterialStatePropertyAll<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStatePropertyAll<Color>(Colors.green),
-                            textStyle: MaterialStatePropertyAll<TextStyle>(
-                                TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                      ),
+                      ))
                     ],
                   ),
-                ))
-              ],
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 
   void onInit() {

@@ -1,6 +1,6 @@
 # blocwithgetit
 
-A new Flutter project.
+Aplikasi ini dibuat dengan flutter menggunakan state management bloc cubit, getit and injection. Api via scrape dari link Melmod di https://melmod.com. 
 
 ## Getting Started
 
