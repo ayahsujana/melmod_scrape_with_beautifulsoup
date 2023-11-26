@@ -2,15 +2,14 @@
 
 Aplikasi ini dibuat dengan flutter menggunakan state management bloc cubit, getit and injection. Api via scrape dari link Melmod di https://melmod.com. 
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Ini hanya aplikasi latihan.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#Home
+https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/home.jpeg
+#Search
+https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/search.jpeg
+#Detail
+https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/detail.jpeg
+#Info
+https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/info.jpeg
