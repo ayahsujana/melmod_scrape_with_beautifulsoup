@@ -6,7 +6,7 @@ Aplikasi ini dibuat dengan flutter menggunakan state management bloc cubit, geti
 Ini hanya aplikasi latihan.
 
 #Home
-https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/home.jpeg
+https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/home.jpg
 #Search
 https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/search.jpeg
 #Detail
