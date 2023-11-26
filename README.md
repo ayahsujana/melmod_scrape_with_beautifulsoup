@@ -8,10 +8,10 @@ Ini hanya aplikasi latihan.
 
 
 #Home
-https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/home.jpg
+![solarized palette](https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/home.png)
 #Search
-![solarized palette](https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/search.jpeg)
+![solarized palette](https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/search.png)
 #Detail
-![solarized palette](https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/detail.jpeg)
+![solarized palette](https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/detail.png)
 #Info
-![solarized palette](https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/info.jpeg)
+![solarized palette](https://github.com/ayahsujana/melmod_scrape_with_beautifulsoup/blob/main/screenshot/info.png)
