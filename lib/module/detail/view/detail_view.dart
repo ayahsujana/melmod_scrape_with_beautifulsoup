@@ -1,20 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:blocwithgetit/Util/Ads/applovin.dart';
+import 'package:blocwithgetit/Util/Constant/app_info.dart';
+import 'package:blocwithgetit/Util/helper/permission_handler.dart';
 import 'package:blocwithgetit/core.dart';
+import 'package:blocwithgetit/module/detail/widget/download_button.dart';
+import 'package:blocwithgetit/module/detail/widget/how_install.dart';
+import 'package:blocwithgetit/module/detail/widget/share_button.dart';
+import 'package:blocwithgetit/module/howto.dart/how_to_install.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import 'package:blocwithgetit/Util/capitalize.dart';
 import 'package:blocwithgetit/model/detail.dart';
-import 'package:blocwithgetit/state_util.dart';
-import 'package:blocwithgetit/widget/loading_switcher.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../controller/detail_controller.dart';
-import '../state/detail_state.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DetailView extends StatefulWidget {
   const DetailView({
@@ -57,7 +59,76 @@ class _DetailViewState extends State<DetailView> {
     return BlocProvider(
       create: (BuildContext context) => controller,
       child: BlocListener<DetailController, DetailState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          controller.checkPermission(context);
+          if (!state.isLoad) {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return CupertinoAlertDialog(
+                  title: Center(
+                    child: Text(
+                      'DOWNLOAD SUCCESS',
+                      style: GoogleFonts.cousine(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  content: Center(
+                    child: Container(
+                      height: 100,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Mod melon playground has been downloaded in folder:',
+                            style: GoogleFonts.cousine(),
+                          ),
+                          const SizedBox(
+                            height: 8.0,
+                          ),
+                          Text(
+                            state.path
+                                .replaceAll('/storage/emulated/0', '')
+                                .replaceAll('&nbsp;', ''),
+                            style: GoogleFonts.cousine(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.green,
+                          side: const BorderSide(
+                            color: Colors.green,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: () {
+                          //AdAppLovinNetwork().showAdIntersApplovin(null);
+                          Get.back();
+                        },
+                        child: Text("Oke",
+                            style: GoogleFonts.cousine(
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+        },
         child: BlocBuilder<DetailController, DetailState>(
           builder: (context, state) {
             final bloc = context.read<DetailController>();
@@ -92,8 +163,6 @@ class _DetailViewState extends State<DetailView> {
                   itemBuilder: (context, index) {
                     DetailMelmodModel dTail = state.detail[index];
                     final table = dTail.table.split(' => ');
-                    String fileName =
-                        dTail.title.replaceAll(RegExp('[^A-Za-z0-9]'), '');
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -129,77 +198,23 @@ class _DetailViewState extends State<DetailView> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text('${table[0].toUpperCase()}:',
-                                  style: GoogleFonts.cousine(fontSize: 12)),
-                            ),
-                            Text(
-                              table[1].capitalize(),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: GoogleFonts.cousine(fontSize: 12),
-                            )
-                          ],
-                        ),
+                        RowDetailMelmod(title1: table[0], title2: table[1]),
                         const SizedBox(
                           height: 5.0,
                         ),
-                        Row(
-                          children: [
-                            Text(table[2].toUpperCase(),
-                                style: GoogleFonts.cousine(fontSize: 12)),
-                            const Spacer(),
-                            Text(
-                              table[3],
-                              style: GoogleFonts.cousine(fontSize: 12),
-                            )
-                          ],
-                        ),
+                        RowDetailMelmod(title1: table[2], title2: table[3]),
                         const SizedBox(
                           height: 5.0,
                         ),
-                        Row(
-                          children: [
-                            Text('${table[4].toUpperCase()}:',
-                                style: GoogleFonts.cousine(fontSize: 12)),
-                            const Spacer(),
-                            Text(
-                              table[5],
-                              style: GoogleFonts.cousine(fontSize: 12),
-                            )
-                          ],
-                        ),
+                        RowDetailMelmod(title1: table[4], title2: table[5]),
                         const SizedBox(
                           height: 5.0,
                         ),
-                        Row(
-                          children: [
-                            Text(table[6].toUpperCase(),
-                                style: GoogleFonts.cousine(fontSize: 12)),
-                            const Spacer(),
-                            Text(
-                              table[7],
-                              style: GoogleFonts.cousine(fontSize: 12),
-                            )
-                          ],
-                        ),
+                        RowDetailMelmod(title1: table[6], title2: table[7]),
                         const SizedBox(
                           height: 5.0,
                         ),
-                        Row(
-                          children: [
-                            Text(table[8].toUpperCase(),
-                                style: GoogleFonts.cousine(fontSize: 12)),
-                            const Spacer(),
-                            Text(
-                              table[9],
-                              style: GoogleFonts.cousine(fontSize: 12),
-                            )
-                          ],
-                        ),
+                        RowDetailMelmod(title1: table[8], title2: table[9]),
                         const SizedBox(
                           height: 10.0,
                         ),
@@ -214,184 +229,38 @@ class _DetailViewState extends State<DetailView> {
                         const SizedBox(
                           height: 5.0,
                         ),
-                        SizedBox(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width,
-                          child: Padding(
-                              padding: EdgeInsets.all(4),
-                              child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    foregroundColor: Colors.green,
-                                    side: const BorderSide(
-                                      color: Colors.green,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                  onPressed: () {},
-                                  child: Text('DOWNLOAD',
-                                      style: GoogleFonts.cousine(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold)))),
-                        ),
-
-                        // SizedBox(
-                        //   width: MediaQuery.of(context).size.width,
-                        //   height: 50,
-                        //   child: BlocConsumer<DownloadCubit, DownloadState>(
-                        //     builder: (context, state) {
-                        //       if (state is DownloadLoading) {
-                        //         return const Center(
-                        //           child:
-                        //               CircularProgressIndicator(color: PRIMARY_COLOR),
-                        //         );
-                        //       }
-                        //       return Padding(
-                        //         padding: const EdgeInsets.all(4.0),
-                        //         child: OutlinedButton(
-                        //           style: OutlinedButton.styleFrom(
-                        //             foregroundColor: PRIMARY_COLOR,
-                        //             side: const BorderSide(
-                        //               color: PRIMARY_COLOR,
-                        //             ),
-                        //             shape: RoundedRectangleBorder(
-                        //               borderRadius: BorderRadius.circular(12),
-                        //             ),
-                        //           ),
-                        //           onPressed: () => context
-                        //               .read<DownloadCubit>()
-                        //               .getDownloadMelmod(
-                        //                   url: dTail.zipUrl,
-                        //                   fileName: '$fileName.zip'),
-                        //           child: Text(
-                        //             "Download",
-                        //             style: GoogleFonts.cousine14(),
-                        //           ),
-                        //         ),
-                        //       );
-                        //     },
-                        //     listener: (context, state) {
-                        //       if (state is DownloadSuccess) {
-                        //         showDialog(
-                        //           barrierDismissible: false,
-                        //           context: context,
-                        //           builder: (context) {
-                        //             return CupertinoAlertDialog(
-                        //               title: Center(
-                        //                 child: Text(
-                        //                   'DOWNLOAD SUCCESS',
-                        //                 ),
-                        //               ),
-                        //               content: Center(
-                        //                 child: Container(
-                        //                   height: 100,
-                        //                   width: double.infinity,
-                        //                   decoration: BoxDecoration(
-                        //                       borderRadius:
-                        //                           BorderRadius.circular(10)),
-                        //                   child: Column(
-                        //                     crossAxisAlignment:
-                        //                         CrossAxisAlignment.center,
-                        //                     mainAxisAlignment:
-                        //                         MainAxisAlignment.center,
-                        //                     mainAxisSize: MainAxisSize.min,
-                        //                     children: [
-                        //                       const Text('Mod has been downloaded:'),
-                        //                       Text(state.path.replaceAll(
-                        //                           '/storage/emulated/0', '')),
-                        //                     ],
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //               actions: [
-                        //                 Padding(
-                        //                   padding: const EdgeInsets.all(8.0),
-                        //                   child: OutlinedButton(
-                        //                     style: OutlinedButton.styleFrom(
-                        //                       foregroundColor: Colors.green,
-                        //                       side: const BorderSide(
-                        //                         color: Colors.green,
-                        //                       ),
-                        //                       shape: RoundedRectangleBorder(
-                        //                         borderRadius:
-                        //                             BorderRadius.circular(12),
-                        //                       ),
-                        //                     ),
-                        //                     onPressed: () {
-                        //                       // AdAppLovinNetwork()
-                        //                       //     .showAdIntersApplovin(null);
-                        //                       Get.back();
-                        //                     },
-                        //                     child: Text("OKEY"),
-                        //                   ),
-                        //                 ),
-                        //               ],
-                        //             );
-                        //           },
-                        //         );
-                        //         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        //         //     content: Text(
-                        //         //         'Download Success! File store in: ${state.path}')));
-                        //       }
-                        //     },
-                        //   ),
-                        // ),
+                        DownloadMelmodButton(
+                            melmod: dTail, controller: controller),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor: Colors.green,
-                                  side: const BorderSide(
-                                    color: Colors.green,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                child: Text("Share To",
-                                    style: GoogleFonts.cousine(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold)),
-                              ),
+                            ShareMelmodButton(
+                              melmod: dTail.title,
                             ),
                             Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    foregroundColor: Colors.green,
-                                    side: const BorderSide(
-                                      color: Colors.green,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                  onPressed: () {}, //Get.to(const HowToUse()),
-                                  child: Text("How To Install",
-                                      style: GoogleFonts.cousine(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ),
+                              child: HowToInstallMelmod(),
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 5.0,
-                        ),
-                        // applovin.showNativeAppLovin(),
                       ],
                     );
                   },
                 ),
               ),
             ),
+    );
+  }
+
+  RowDetailMelmod({required String title1, required String title2}) {
+    return Row(
+      children: [
+        Text(title1.toUpperCase(), style: GoogleFonts.cousine(fontSize: 12)),
+        const Spacer(),
+        Text(
+          title2,
+          style: GoogleFonts.cousine(fontSize: 12),
+        )
+      ],
     );
   }
 }

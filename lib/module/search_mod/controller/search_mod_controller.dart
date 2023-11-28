@@ -2,8 +2,6 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:blocwithgetit/Util/Ads/applovin.dart';
 import 'package:blocwithgetit/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../state/search_mod_state.dart';
-import 'package:blocwithgetit/bloc_util.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton

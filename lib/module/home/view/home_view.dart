@@ -1,18 +1,12 @@
 import 'package:blocwithgetit/Util/Ads/applovin.dart';
 import 'package:blocwithgetit/Util/Constant/app_info.dart';
-import 'package:blocwithgetit/Util/screen_system.dart';
 import 'package:blocwithgetit/core.dart';
 import 'package:blocwithgetit/module/Settings/about_info.dart';
-import 'package:blocwithgetit/state_util.dart';
-import 'package:blocwithgetit/widget/loading_switcher.dart';
-import 'package:blocwithgetit/widget/melmod_contains.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../controller/home_controller.dart';
-import '../state/home_state.dart';
 import 'package:get_it/get_it.dart';
 
 class HomeView extends StatefulWidget {
@@ -32,6 +26,7 @@ class _HomeViewState extends State<HomeView> {
     }
     GetIt.I.registerSingleton(controller);
     controller.initState();
+
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => controller.ready(),
     );
@@ -46,6 +41,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    
     return BlocProvider(
       create: (BuildContext context) => controller,
       child: BlocListener<HomeController, HomeState>(

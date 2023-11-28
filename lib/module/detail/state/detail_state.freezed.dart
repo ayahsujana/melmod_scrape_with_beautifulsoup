@@ -21,6 +21,14 @@ mixin _$DetailState {
       throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   set isLoading(bool value) => throw _privateConstructorUsedError;
+  bool get isLoad => throw _privateConstructorUsedError;
+  set isLoad(bool value) => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
+  set path(String value) => throw _privateConstructorUsedError;
+  String get message => throw _privateConstructorUsedError;
+  set message(String value) => throw _privateConstructorUsedError;
+  double get progress => throw _privateConstructorUsedError;
+  set progress(double value) => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DetailStateCopyWith<DetailState> get copyWith =>
@@ -33,7 +41,13 @@ abstract class $DetailStateCopyWith<$Res> {
           DetailState value, $Res Function(DetailState) then) =
       _$DetailStateCopyWithImpl<$Res, DetailState>;
   @useResult
-  $Res call({List<DetailMelmodModel> detail, bool isLoading});
+  $Res call(
+      {List<DetailMelmodModel> detail,
+      bool isLoading,
+      bool isLoad,
+      String path,
+      String message,
+      double progress});
 }
 
 /// @nodoc
@@ -51,6 +65,10 @@ class _$DetailStateCopyWithImpl<$Res, $Val extends DetailState>
   $Res call({
     Object? detail = null,
     Object? isLoading = null,
+    Object? isLoad = null,
+    Object? path = null,
+    Object? message = null,
+    Object? progress = null,
   }) {
     return _then(_value.copyWith(
       detail: null == detail
@@ -61,6 +79,22 @@ class _$DetailStateCopyWithImpl<$Res, $Val extends DetailState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLoad: null == isLoad
+          ? _value.isLoad
+          : isLoad // ignore: cast_nullable_to_non_nullable
+              as bool,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      progress: null == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -73,7 +107,13 @@ abstract class _$$DetailStateImplCopyWith<$Res>
       __$$DetailStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<DetailMelmodModel> detail, bool isLoading});
+  $Res call(
+      {List<DetailMelmodModel> detail,
+      bool isLoading,
+      bool isLoad,
+      String path,
+      String message,
+      double progress});
 }
 
 /// @nodoc
@@ -89,6 +129,10 @@ class __$$DetailStateImplCopyWithImpl<$Res>
   $Res call({
     Object? detail = null,
     Object? isLoading = null,
+    Object? isLoad = null,
+    Object? path = null,
+    Object? message = null,
+    Object? progress = null,
   }) {
     return _then(_$DetailStateImpl(
       detail: null == detail
@@ -99,6 +143,22 @@ class __$$DetailStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLoad: null == isLoad
+          ? _value.isLoad
+          : isLoad // ignore: cast_nullable_to_non_nullable
+              as bool,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      progress: null == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -106,7 +166,13 @@ class __$$DetailStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DetailStateImpl implements _DetailState {
-  _$DetailStateImpl({this.detail = const [], this.isLoading = true});
+  _$DetailStateImpl(
+      {this.detail = const [],
+      this.isLoading = true,
+      this.isLoad = true,
+      this.path = '',
+      this.message = '',
+      this.progress = 0.0});
 
   @override
   @JsonKey()
@@ -114,10 +180,22 @@ class _$DetailStateImpl implements _DetailState {
   @override
   @JsonKey()
   bool isLoading;
+  @override
+  @JsonKey()
+  bool isLoad;
+  @override
+  @JsonKey()
+  String path;
+  @override
+  @JsonKey()
+  String message;
+  @override
+  @JsonKey()
+  double progress;
 
   @override
   String toString() {
-    return 'DetailState(detail: $detail, isLoading: $isLoading)';
+    return 'DetailState(detail: $detail, isLoading: $isLoading, isLoad: $isLoad, path: $path, message: $message, progress: $progress)';
   }
 
   @JsonKey(ignore: true)
@@ -128,8 +206,13 @@ class _$DetailStateImpl implements _DetailState {
 }
 
 abstract class _DetailState implements DetailState {
-  factory _DetailState({List<DetailMelmodModel> detail, bool isLoading}) =
-      _$DetailStateImpl;
+  factory _DetailState(
+      {List<DetailMelmodModel> detail,
+      bool isLoading,
+      bool isLoad,
+      String path,
+      String message,
+      double progress}) = _$DetailStateImpl;
 
   @override
   List<DetailMelmodModel> get detail;
@@ -137,6 +220,18 @@ abstract class _DetailState implements DetailState {
   @override
   bool get isLoading;
   set isLoading(bool value);
+  @override
+  bool get isLoad;
+  set isLoad(bool value);
+  @override
+  String get path;
+  set path(String value);
+  @override
+  String get message;
+  set message(String value);
+  @override
+  double get progress;
+  set progress(double value);
   @override
   @JsonKey(ignore: true)
   _$$DetailStateImplCopyWith<_$DetailStateImpl> get copyWith =>

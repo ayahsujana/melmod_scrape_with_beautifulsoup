@@ -3,10 +3,7 @@ import 'dart:io';
 import 'package:blocwithgetit/Util/Ads/applovin.dart';
 import 'package:blocwithgetit/core.dart';
 import 'package:blocwithgetit/service/appupdate.dart';
-import 'package:blocwithgetit/state_util.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../state/splash_state.dart';
-import 'package:blocwithgetit/bloc_util.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton

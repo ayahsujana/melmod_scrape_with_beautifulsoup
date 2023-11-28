@@ -9,7 +9,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:blocwithgetit/Util/screen_system.dart';
 import 'package:blocwithgetit/module/detail/view/detail_view.dart';
-import 'package:blocwithgetit/state_util.dart';
 import 'package:blocwithgetit/widget/loading_switcher.dart';
 import 'package:blocwithgetit/widget/melmod_contains.dart';
 
